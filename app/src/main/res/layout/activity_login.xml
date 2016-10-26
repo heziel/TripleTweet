@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#1DA0F2"
+    tools:context=".activity.LoginActivity" >
+
+    <ImageView
+        android:id="@+id/ivLogonPage"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/twitter_bird_logo"
+        />
+
+    <TextView
+        android:id="@+id/tvLoginPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/triple_tweet"
+        android:background="#1DA0F2"
+        android:layout_alignBottom="@+id/ivLogonPage"
+        android:textColor="@android:color/white"
+        android:layout_centerHorizontal="true"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/tvSpace"
+        android:layout_alignTop="@id/tvLoginPage"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
+    <ImageButton
+        android:id="@+id/ibLoginPage"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp"
+        android:onClick="loginToRest"
+        android:layout_alignBottom="@+id/tvSpace"
+        android:background="@drawable/btn_twitter_login"
+        android:paddingTop="300dp"
+        android:foregroundGravity="bottom"
+        android:text="@string/login_label"
+
+        />
+
+</RelativeLayout>

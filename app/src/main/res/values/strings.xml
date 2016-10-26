@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Triple Tweet</string>
+    <string name="login_label">Log in</string>
+    <string name="triple_tweet">WELCOME TO TRIPLE TWEET</string>
+    <string name="title_activity_timeline">TimelineActivity</string>
+
+</resources>
