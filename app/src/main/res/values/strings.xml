@@ -8,5 +8,7 @@
     <string name="profile_picture">ProfilePicture</string>
     <string name="just_now">Just Now</string>
     <string name="feed_image">FeedImage</string>
+    <string name="new_tweet">Compose New Tweet</string>
+    <string name="compose_fragment">compose_fragment</string>
 
 </resources>

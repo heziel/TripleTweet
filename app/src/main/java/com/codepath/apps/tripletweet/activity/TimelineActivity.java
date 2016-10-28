@@ -1,8 +1,13 @@
 package com.codepath.apps.tripletweet.activity;
 
+import android.content.Intent;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 
 import com.codepath.apps.tripletweet.R;
 import com.codepath.apps.tripletweet.adapter.TweetsArrayAdapter;
+import com.codepath.apps.tripletweet.fragment.ComposeFragment;
 import com.codepath.apps.tripletweet.models.Tweet;
 import com.codepath.apps.tripletweet.network.TwitterApplication;
 import com.codepath.apps.tripletweet.network.TwitterClient;
@@ -29,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements  ComposeFragment.newTweetListener{
 
     @BindView(R.id.rvTripleTweet) RecyclerView rvTripleTweet;
 
@@ -38,6 +44,7 @@ public class TimelineActivity extends AppCompatActivity {
     private TweetsArrayAdapter tweetsArrayAdapter;
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
+    private DialogFragment composeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +54,39 @@ public class TimelineActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        floatingActionButton();
+
+        init();
+
+        pullToRefresh();
+    }
+
+    /*
+    *   Floating Action Button
+    */
+    private void floatingActionButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                showComposeDialog();
             }
         });
-
-        init();
-
-       pullToRefresh();
     }
 
+
+    /*
+    *   Show Compose Dialog
+    */
+    private void showComposeDialog() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        ComposeFragment composeDialogFragment = ComposeFragment.newInstance(getString(R.string.new_tweet));
+        composeDialogFragment.show(fragmentManager, getString(R.string.compose_fragment));
+    }
+
+    /*
+    *   Pull To Refresh
+    */
     private void pullToRefresh() {
 
         // Lookup the swipe container view
@@ -87,7 +113,7 @@ public class TimelineActivity extends AppCompatActivity {
 
     /*
     *   Initializer
-     */
+    */
     private void init() {
 
         ButterKnife.bind(this);
@@ -156,4 +182,25 @@ public class TimelineActivity extends AppCompatActivity {
         });
     }
 
+
+
+/*
+    *//*
+    *  Method for getting response from the FilterDialof
+    *//*
+    @Override
+    public void on(Filter filter) {
+        mainFilter = filter;
+        Toast.makeText(this,"Filter Used", Toast.LENGTH_SHORT).show();
+
+        articles.clear();
+        articleSearch(apiQuery,0);
+    }*/
+
+    @Override
+    public void onFinishComposeTweet(Tweet tweet) {
+        //mainTweet = tweet;
+        tweetArrayList.clear();
+        populateTimeline();
+    }
 }
