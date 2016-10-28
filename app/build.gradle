@@ -4,6 +4,10 @@ android {
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
 
+    dataBinding{
+        enabled = true;
+    }
+
     defaultConfig {
         applicationId "com.codepath.apps.restclienttemplate"
         minSdkVersion 16
@@ -49,5 +53,16 @@ dependencies {
 
     // Recyclerview Library
     compile 'com.android.support:recyclerview-v7:24.0.+'
+
+    // butterknife Library.
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+
+    // picasso Library
+    compile 'com.squareup.picasso:picasso:2.5.2'
+
+    // Glide Library
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    compile 'com.android.support:support-v4:24.0.0'
 
 }

@@ -4,6 +4,9 @@
     <string name="app_name">Triple Tweet</string>
     <string name="login_label">Log in</string>
     <string name="triple_tweet">WELCOME TO TRIPLE TWEET</string>
-    <string name="title_activity_timeline">TimelineActivity</string>
+    <string name="title_activity_timeline">T-T-T</string>
+    <string name="profile_picture">ProfilePicture</string>
+    <string name="just_now">Just Now</string>
+    <string name="feed_image">FeedImage</string>
 
 </resources>
