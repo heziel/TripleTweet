@@ -48,9 +48,18 @@
 
                     <TextView
                         android:id="@+id/tvName"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/feed_item_profile_name"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:text="adadasda"
+                        android:textColor="@color/timestamp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -61,12 +70,14 @@
                         android:textColor="@color/timestamp"
                         android:textSize="@dimen/feed_item_timestamp" />
                 </LinearLayout>
+
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvTweetFeed"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="all"
                 android:paddingBottom="5dp"
                 android:paddingLeft="@dimen/feed_item_status_pad_left_right"
                 android:paddingRight="@dimen/feed_item_status_pad_left_right"

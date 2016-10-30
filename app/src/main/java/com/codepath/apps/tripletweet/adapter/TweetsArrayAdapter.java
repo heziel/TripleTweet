@@ -51,17 +51,15 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetViewHolder>{
         return  viewHolder;
     }
 
+
     @Override
     public void onBindViewHolder(TweetViewHolder holder, int position) {
         Tweet tweet = tweetList.get(position);
 
-       // String body = tweetList.get(position).getBody();
-
         holder.getTvTweetFeed().setText(tweet.getBody());
-
         holder.getTvName().setText(tweet.getUser().getName());
-
         holder.getTvTimeStamp().setText(getRelativeTimeAgo(tweet.getCreatedAt()));
+        holder.getTvUserName().setText(tweet.getUser().getScreenName());
 
         // populate the picture.
         Glide.with(context).load(tweet.getUser().getProfileImageUrl())
@@ -109,7 +107,4 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetViewHolder>{
         tweetList.addAll(tweets);
         notifyDataSetChanged();
     }
-
-
-
 }

@@ -1,6 +1,9 @@
 package com.codepath.apps.tripletweet.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +28,8 @@ import com.codepath.apps.tripletweet.network.TwitterApplication;
 import com.codepath.apps.tripletweet.network.TwitterClient;
 import com.codepath.apps.tripletweet.utils.EndlessRecyclerViewScrollListener;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,6 +39,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
+
+import static com.codepath.apps.tripletweet.R.color.tweet;
 
 public class TimelineActivity extends AppCompatActivity implements  ComposeFragment.newTweetListener{
 
@@ -48,17 +55,27 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        toolbarSupport();
+        floatingActionButton();
+        init();
+        pullToRefresh();
+
+        // This instantiates DBFlow
+       // FlowManager.init(new FlowConfig.Builder(this).build());
+
+
+    }
+
+    private void toolbarSupport() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        floatingActionButton();
-
-        init();
-
-        pullToRefresh();
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setLogo(R.drawable.twitter_bird_logo);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getString(R.string.tweet_color))));
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
 
     /*
@@ -66,6 +83,8 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
     */
     private void floatingActionButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(getString(R.string.tweet_color))));
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +101,8 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         FragmentManager fragmentManager = getSupportFragmentManager();
         ComposeFragment composeDialogFragment = ComposeFragment.newInstance(getString(R.string.new_tweet));
         composeDialogFragment.show(fragmentManager, getString(R.string.compose_fragment));
+        composeDialogFragment.setStyle(DialogFragment.STYLE_NORMAL,android.R.style.Theme_Holo_Dialog_NoActionBar);
+
     }
 
     /*
@@ -135,8 +156,6 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         // Set layout manager to position the items
         rvTripleTweet.setLayoutManager(linearLayoutManager);
 
-        // Only ever call `setContentView` once right at the top
-       // setContentView(R.layout.activity_timeline);
 
 /*
         //  Pagination

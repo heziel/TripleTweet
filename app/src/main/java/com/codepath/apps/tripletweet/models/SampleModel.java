@@ -29,6 +29,18 @@ public class SampleModel extends BaseModel {
 	@Column
 	private String name;
 
+/*	@Column
+	private Tweet tweet;
+
+	public Tweet getTweet() {
+		return tweet;
+	}
+
+	public void setTweet(Tweet tweet) {
+		this.tweet = tweet;
+	}*/
+
+
 	public SampleModel() {
 		super();
 	}

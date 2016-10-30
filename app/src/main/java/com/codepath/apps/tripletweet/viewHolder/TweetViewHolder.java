@@ -2,6 +2,7 @@ package com.codepath.apps.tripletweet.viewHolder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcel;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,7 +10,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.codepath.apps.tripletweet.R;
+import com.codepath.apps.tripletweet.activity.DetailActivity;
 import com.codepath.apps.tripletweet.models.Tweet;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -23,11 +27,14 @@ public class TweetViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.ivProfilePic) ImageView ivProfilePic;
     @BindView(R.id.tvTimeStamp) TextView tvTimeStamp;
+    @BindView(R.id.tvUserName) TextView tvUserName;
 
     private List<Tweet> tweetList;
     private Context context;
 
     // Getters
+
+    public TextView getTvUserName() { return tvUserName; }
 
     public TextView getTvTimeStamp() { return tvTimeStamp; }
 
@@ -57,15 +64,12 @@ public class TweetViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public void onClick(View v) {
 
         int position = getLayoutPosition();
-
-        // get the article
-        Tweet article = tweetList.get(position);
+        // get the tweet
+        Tweet tweet = tweetList.get(position);
 
         // send the url to DetailActivity
-     //   Intent i = new Intent(context, DetailActivity.class);
-     //   i.putExtra("webUrl", article.webUrl);
-      //  context.startActivity(i);
-
-
+         Intent i = new Intent(context, DetailActivity.class);
+          i.putExtra("tweet", Parcels.wrap(tweet));
+          context.startActivity(i);
     }
 }

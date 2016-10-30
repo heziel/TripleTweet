@@ -1,43 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:padding="5dp">
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:paddingTop="100dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/ivComposeImage"
-            android:src="@drawable/ic_launcher"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
         <Button
-            android:id="@+id/btnSubmitTweet"
-            android:layout_alignParentRight="true"
+            android:id="@+id/btnCancelTweet"
             android:layout_width="60dp"
             android:layout_height="30dp"
             android:background="@color/tweet"
+            android:text="Back"
             android:textAllCaps="false"
-            android:textSize="12sp"
             android:textColor="#ffffff"
-            android:text="Tweet" />
+            android:textSize="12sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ImageView
+            android:id="@+id/ivComposeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="10dp"
+            android:src="@drawable/ic_launcher" />
+
+        <Button
+            android:id="@+id/btnSubmitTweet"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:background="@color/tweet"
+            android:text="Tweet"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/etNewTweet"
-        android:hint="What's happening?"
-        android:gravity="top"
-        android:padding="10dp"
-        android:textColorHint="#666666"
-        android:textColor="#000000"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/etNewTweet"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="top"
+            android:hint="Write Your Message..."
+            android:maxLength="140"
+            android:maxLines="4"
+            android:padding="10dp"
+            android:textColor="#000000"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/tvCharcter"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="140"
+            android:gravity="right"
+            android:layout_below="@+id/etNewTweet"
+            android:layout_alignRight="@+id/etNewTweet"
+            android:layout_alignEnd="@+id/etNewTweet" />
+    </RelativeLayout>
 
 </LinearLayout>
