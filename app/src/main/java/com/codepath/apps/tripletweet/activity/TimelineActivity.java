@@ -183,6 +183,7 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
 
+                Log.d("DEBUG", json.toString());
                 ArrayList<Tweet> tweets = Tweet.fromJSONArray(json);
                 tweetArrayList.addAll(tweets);
                 tweetsArrayAdapter.notifyDataSetChanged();

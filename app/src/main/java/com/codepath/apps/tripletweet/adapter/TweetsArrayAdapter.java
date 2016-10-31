@@ -66,6 +66,11 @@ public class TweetsArrayAdapter extends RecyclerView.Adapter<TweetViewHolder>{
                 .placeholder(R.drawable.twitter_bird_logo)
                 .into(holder.getIvProfilePic());
 
+        String media_url = tweet.getEntities().getMedia().getMediaUrl();
+
+        Glide.with(context).load(media_url)
+                .placeholder(null)
+                .into(holder.getIvFeedImage());
     }
 
     @Override

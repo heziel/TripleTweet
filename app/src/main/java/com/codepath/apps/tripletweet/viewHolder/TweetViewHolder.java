@@ -28,11 +28,13 @@ public class TweetViewHolder extends RecyclerView.ViewHolder implements View.OnC
     @BindView(R.id.ivProfilePic) ImageView ivProfilePic;
     @BindView(R.id.tvTimeStamp) TextView tvTimeStamp;
     @BindView(R.id.tvUserName) TextView tvUserName;
+    @BindView(R.id.ivFeedImage) ImageView ivFeedImage;
 
     private List<Tweet> tweetList;
     private Context context;
 
     // Getters
+    public ImageView getIvFeedImage() { return ivFeedImage; }
 
     public TextView getTvUserName() { return tvUserName; }
 
@@ -58,7 +60,6 @@ public class TweetViewHolder extends RecyclerView.ViewHolder implements View.OnC
         itemView.setOnClickListener(this);
         ButterKnife.bind(this,itemView);
     }
-
 
     @Override
     public void onClick(View v) {

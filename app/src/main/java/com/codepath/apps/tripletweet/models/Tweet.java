@@ -13,7 +13,9 @@ public class Tweet {
     public String body;
     public long unique_id; // unique id of the tweet
     public String createdAt;
+    public Boolean retweeted;
     public User user;
+    public Entities entities;
 
     public void setUser(User user) {
         this.user = user;
@@ -21,6 +23,11 @@ public class Tweet {
 
     // empty constructor needed by the Parceler library
     public Tweet() {}
+
+    // Getters
+    public Entities getEntities() { return entities; }
+
+    public Boolean getRetweeted() { return retweeted; }
 
     public String getBody() {
         return body;
@@ -45,7 +52,9 @@ public class Tweet {
             tweet.body = jsonObject.getString("text");
             tweet.unique_id = jsonObject.getLong("id");
             tweet.createdAt = jsonObject.getString("created_at");
+            tweet.retweeted = jsonObject.getBoolean("retweeted");
             tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+            tweet.entities = Entities.fromJSON(jsonObject.getJSONObject("entities"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

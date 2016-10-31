@@ -5,11 +5,15 @@ import org.scribe.builder.api.FlickrApi;
 import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
+import android.preference.PreferenceActivity;
 
+import com.codepath.apps.tripletweet.models.Tweet;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import java.io.IOException;
 
 /*
  * 
@@ -49,17 +53,12 @@ public class TwitterClient extends OAuthBaseClient {
 
     //Home Timeline
     public void getHomeTimeLine(AsyncHttpResponseHandler handler){
-
         String apiUrl = getApiUrl("statuses/home_timeline.json");
-
         // set params
         RequestParams params = new RequestParams();
-
         params.put("count",25);
         params.put("since_id",1); // most recent tweets.
-
         getClient().get(apiUrl,params,handler);
-
     }
 
 	public void postUpdate(String tweetBody, AsyncHttpResponseHandler handler) {
@@ -67,6 +66,31 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("status", tweetBody);
 		client.post(apiUrl, params, handler);
+	}
+
+
+	public void retweet(Long id, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl(String.format("statuses/retweet/%d.json", id));
+		RequestParams params = new RequestParams();
+		params.put("id", id);
+		client.post(apiUrl, params, handler);
+/*		getClient().post(apiUrl, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, PreferenceActivity.Header[] headers, byte[] responseBody) {
+				ObjectMapper mapper = new ObjectMapper();
+				try {
+					Tweet tweet = mapper.readValue(responseBody, Tweet.class);
+					handler.onSuccess(tweet);
+				} catch (IOException e) {
+					handler.onFailure(e);
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+				handler.onFailure(error);
+			}
+		});*/
 	}
 
     // Compose a Tweet

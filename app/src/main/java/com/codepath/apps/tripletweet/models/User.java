@@ -9,9 +9,11 @@ import org.parceler.Parcel;
 public class User {
 
     public String name;
-    public   long uniqueId;
+    public long   uniqueId;
     public String screenName;
     public String profileImageUrl;
+
+    // Getters
 
     public String getName() {
         return name;
@@ -35,8 +37,8 @@ public class User {
         // extract and fill the values
         try {
             user.name = jsonObject.getString("name");
-            user.uniqueId = jsonObject.getLong("id  ");
-            user.screenName = jsonObject.getString("");
+            user.uniqueId = jsonObject.getLong("id");
+            user.screenName = "@" + jsonObject.getString("screen_name");
             user.profileImageUrl =jsonObject.getString("profile_image_url");
         } catch (JSONException e) {
             e.printStackTrace();
