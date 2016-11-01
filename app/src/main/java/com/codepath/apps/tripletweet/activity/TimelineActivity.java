@@ -62,18 +62,13 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         floatingActionButton();
         init();
         pullToRefresh();
-
-        // This instantiates DBFlow
-       // FlowManager.init(new FlowConfig.Builder(this).build());
-
-
     }
 
     private void toolbarSupport() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.twitter_bird_logo);
+        getSupportActionBar().setLogo(R.drawable.twitter_logo_white_48);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getString(R.string.tweet_color))));
         getSupportActionBar().setDisplayUseLogoEnabled(true);
     }
@@ -102,14 +97,12 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         ComposeFragment composeDialogFragment = ComposeFragment.newInstance(getString(R.string.new_tweet));
         composeDialogFragment.show(fragmentManager, getString(R.string.compose_fragment));
         composeDialogFragment.setStyle(DialogFragment.STYLE_NORMAL,android.R.style.Theme_Holo_Dialog_NoActionBar);
-
     }
 
     /*
     *   Pull To Refresh
     */
     private void pullToRefresh() {
-
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -121,7 +114,8 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
                 // Notify the adapter of the update
                 tweetsArrayAdapter.notifyDataSetChanged(); // or notifyItemRangeRemoved
 
-                populateTimeline();
+                populateTimeline(null);
+             //   loadNextDataFromApi();
             }
         });
 
@@ -142,7 +136,7 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         // getting singleton client
         twitterClient = TwitterApplication.getRestClient();
 
-        populateTimeline();
+        populateTimeline(null);
 
         tweetArrayList = new ArrayList<>();
         tweetsArrayAdapter = new TweetsArrayAdapter(this,tweetArrayList);
@@ -157,29 +151,30 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         rvTripleTweet.setLayoutManager(linearLayoutManager);
 
 
-/*
-        //  Pagination
+        // Pagination
         scrollListener = new EndlessRecyclerViewScrollListener( linearLayoutManager)  {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                loadNextDataFromApi(page);
+                loadNextDataFromApi();
             }
         };
 
-        rvTripleTweet.addOnScrollListener(scrollListener);*/
-
+        rvTripleTweet.addOnScrollListener(scrollListener);
     }
 
     // Loading more Tweets to the timeLine
-    private void loadNextDataFromApi(int page) {
-        //  Implement Load More...
+    private void loadNextDataFromApi() {
+        int arrayLength = tweetArrayList.size() - 1;
+        String maxID = String.valueOf(tweetArrayList.get(arrayLength).getUnique_id());
+        Toast.makeText(this,"Loading...",Toast.LENGTH_SHORT).show();
+        populateTimeline(maxID);
     }
 
     // send an api request
     // fill the list view
-    private void populateTimeline() {
+    private void populateTimeline(String maxId) {
 
-        twitterClient.getHomeTimeLine(new JsonHttpResponseHandler(){
+        twitterClient.getHomeTimeLine(maxId,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
 
@@ -201,25 +196,9 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
         });
     }
 
-
-
-/*
-    *//*
-    *  Method for getting response from the FilterDialof
-    *//*
-    @Override
-    public void on(Filter filter) {
-        mainFilter = filter;
-        Toast.makeText(this,"Filter Used", Toast.LENGTH_SHORT).show();
-
-        articles.clear();
-        articleSearch(apiQuery,0);
-    }*/
-
     @Override
     public void onFinishComposeTweet(Tweet tweet) {
-        //mainTweet = tweet;
         tweetArrayList.clear();
-        populateTimeline();
+        loadNextDataFromApi();
     }
 }

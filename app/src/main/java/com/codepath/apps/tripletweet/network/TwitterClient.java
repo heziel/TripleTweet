@@ -52,12 +52,12 @@ public class TwitterClient extends OAuthBaseClient {
 	// END POINTS
 
     //Home Timeline
-    public void getHomeTimeLine(AsyncHttpResponseHandler handler){
+    public void getHomeTimeLine(String maxId,AsyncHttpResponseHandler handler){
         String apiUrl = getApiUrl("statuses/home_timeline.json");
-        // set params
         RequestParams params = new RequestParams();
-        params.put("count",25);
-        params.put("since_id",1); // most recent tweets.
+        params.put("count",2);
+		params.put("max_id",maxId);
+        //params.put("since_id",1); // most recent tweets.
         getClient().get(apiUrl,params,handler);
     }
 
@@ -68,39 +68,10 @@ public class TwitterClient extends OAuthBaseClient {
 		client.post(apiUrl, params, handler);
 	}
 
-
 	public void retweet(Long id, AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl(String.format("statuses/retweet/%d.json", id));
 		RequestParams params = new RequestParams();
 		params.put("id", id);
 		client.post(apiUrl, params, handler);
-/*		getClient().post(apiUrl, new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(int statusCode, PreferenceActivity.Header[] headers, byte[] responseBody) {
-				ObjectMapper mapper = new ObjectMapper();
-				try {
-					Tweet tweet = mapper.readValue(responseBody, Tweet.class);
-					handler.onSuccess(tweet);
-				} catch (IOException e) {
-					handler.onFailure(e);
-				}
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-				handler.onFailure(error);
-			}
-		});*/
 	}
-
-    // Compose a Tweet
-
-	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
-	 * 	  i.e getApiUrl("statuses/home_timeline.json");
-	 * 2. Define the parameters to pass to the request (query or body)
-	 *    i.e RequestParams params = new RequestParams("foo", "bar");
-	 * 3. Define the request method and make a call to the client
-	 *    i.e client.get(apiUrl, params, handler);
-	 *    i.e client.post(apiUrl, params, handler);
-	 */
 }
