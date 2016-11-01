@@ -39,6 +39,8 @@ public class DetailActivity extends AppCompatActivity {
     TextView tvDetailTweetFeed;
     @BindView(R.id.ivRetweets)
     ImageView ivRetweet;
+    @BindView(R.id.ivDetailFeedImage)
+    ImageView ivDetailFeedImage;
 
     Tweet tweet;
 
@@ -68,9 +70,9 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Boolean isRetweeted = tweet.getRetweeted();
-        if (isRetweeted){
+        if (isRetweeted) {
             ivRetweet.setImageResource(R.drawable.ic_twitter_retweet_done);
-        }else{
+        } else {
             ivRetweet.setImageResource(R.drawable.ic_twitter_retweet_default);
         }
 
@@ -109,13 +111,19 @@ public class DetailActivity extends AppCompatActivity {
         tvDetailUserName.setText(tweet.getUser().getScreenName());
 
         tvDetailTweetFeed.setText(tweet.getBody());
+
+        String media_url = tweet.getEntities().getMedia().getMediaUrl();
+
+        Glide.with(this).load(media_url)
+                .placeholder(null)
+                .into(ivDetailFeedImage);
     }
 
     private void toolbarSupport() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.twitter_bird_logo);
+        getSupportActionBar().setLogo(R.drawable.twitter_logo_white_48);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(getString(R.string.tweet_color))));
         getSupportActionBar().setDisplayUseLogoEnabled(true);
     }

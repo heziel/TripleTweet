@@ -2,6 +2,7 @@ package com.codepath.apps.tripletweet.models;
 
 import com.codepath.apps.tripletweet.database.MyDatabase;
 import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
 import com.raizlabs.android.dbflow.sql.language.Select;
@@ -9,6 +10,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.List;
 
@@ -19,7 +21,10 @@ import java.util.List;
  * 
  */
 @Table(database = MyDatabase.class)
+@Parcel(analyze={SampleModel.class})
 public class SampleModel extends BaseModel {
+
+	public void SampleModel(){}
 
 	@PrimaryKey
 	@Column
@@ -27,23 +32,19 @@ public class SampleModel extends BaseModel {
 
 	// Define table fields
 	@Column
-	private String name;
-
-/*	@Column
-	private Tweet tweet;
-
-	public Tweet getTweet() {
-		return tweet;
-	}
-
-	public void setTweet(Tweet tweet) {
-		this.tweet = tweet;
-	}*/
-
+	public String name;
 
 	public SampleModel() {
 		super();
 	}
+
+/*	@Column
+	@ForeignKey(saveForeignKeyModel = false)
+	Tweet tweet;
+
+	public void setOrganization(Tweet tweet) {
+		this.tweet = tweet;
+	}*/
 
 	// Parse model from JSON
 	public SampleModel(JSONObject object){

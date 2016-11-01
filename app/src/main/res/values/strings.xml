@@ -10,7 +10,7 @@
     <string name="feed_image">FeedImage</string>
     <string name="new_tweet">Compose New Tweet</string>
     <string name="compose_fragment">compose_fragment</string>
-    <string name="title_activity_detail">Tweet Detail</string>
+    <string name="title_activity_detail">Detail</string>
     <string name="tweet_color">#1DA0F2</string>
 
 </resources>

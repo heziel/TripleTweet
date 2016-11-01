@@ -191,7 +191,6 @@ public class TimelineActivity extends AppCompatActivity implements  ComposeFragm
                 // disable pull to refresh
                 swipeContainer.setRefreshing(false);
 
-                Toast.makeText(TimelineActivity.this,"GOOD", Toast.LENGTH_SHORT).show();
                 Log.d("DEBUG", json.toString());
             }
 
